@@ -23,6 +23,13 @@
   - **Image**: Image view and profile plot graph at the bottom
   - **Settings**: Tabs of different analysis parameters
   
+  There's a table to show statistics about detected peaks and fitted parameters. Here are the availble metrics for the latest version:
+  - **Number of spots**: number of detected peaks based on the parameters set in peak find setting section. For optical profiles and MMI patterns, this number indicates number of bright spots.
+  - **Full-Width-Half-Maxima (FWHM)**: FWHM based on extracted σ value from Gaussian fit:
+  *FWHM = 2σ√(2 ln(2))*
+  - **Peak to Valley**: the gap between average of peaks and valleys for detected peaks
+  - **Δx**: the separation between detected peaks
+  Average and standard deviation of the mentioned metrics are listed in the table.
   A pop up window with plot of actual values taken from raw data as well as Gaussian fits to the detected peaks in intensity plot. There are highlighted parts to show *peaks* and *valleys* and dashed lines showing averages of these parameters.
   ![alt text](https://github.com/vganjali/Mode-Analyzer/blob/master/screenshots/4.png "Plot window")
   
