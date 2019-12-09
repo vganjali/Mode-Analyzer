@@ -31,6 +31,7 @@
   *FWHM = 2σ√(2 ln(2))*
   - **Peak to Valley**: the gap between average of peaks and valleys for detected peaks
   - **Δx**: the separation between detected peaks
+  
   Average and standard deviation of the mentioned metrics are listed in the table.
   
   A pop up window with plot of actual values taken from raw data as well as Gaussian fits to the detected peaks in intensity plot. There are highlighted parts to show *peaks* and *valleys* and dashed lines showing averages of these parameters.
