@@ -240,7 +240,7 @@ class App(threading.Thread):
 		self.main_gui.ax1.cla()
 		self.main_gui.ax1.Line0, = self.main_gui.ax1.plot([], 'y-')
 		self.main_gui.ax1.Line0.set_data(np.linspace(0,np.alen(Data)/pixel_to_um,np.alen(Data)), Data)
-		self.main_gui.ax1.axis('normal')
+		self.main_gui.ax1.axis('auto')
 		self.main_gui.ax1.relim()
 		self.main_gui.ax1.autoscale()
 		self.main_gui.canvas1.draw()
@@ -257,7 +257,7 @@ class App(threading.Thread):
 			self.main_gui.theResultTable.item(self.main_gui.theResultTable.get_children()[1], values=('FWHM', str("%.3f" % np.mean(FWHM)), str("%.3f" % np.mean(FWHM_STD))))
 			self.main_gui.theResultTable.item(self.main_gui.theResultTable.get_children()[2], values=('Peak to Valley', str("%.3f" % np.mean(Peak_to_Valley)), str("%.3f" % np.mean(Peak_to_Valley_STD))))
 			self.main_gui.theResultTable.item(self.main_gui.theResultTable.get_children()[3], values=(u'\u0394X', str("%.3f" % Delta_X), str("%.3f" % Delta_X_STD)))
-			self.main_gui.theResultTable.item(self.main_gui.theResultTable.get_children()[4], values=('SNR', str("%.3f" % (np.mean(Data[Idx])/(np.mean(Data[Idx]) - np.mean(Peak_to_Valley)))), '0'))
+			#self.main_gui.theResultTable.item(self.main_gui.theResultTable.get_children()[4], values=('SNR', str("%.3f" % (np.mean(Data[Idx])/(np.mean(Data[Idx]) - np.mean(Peak_to_Valley)))), '0'))
 			dx = Delta_X*pixel_to_um
 			number_of_peaks = np.alen(FWHM)
 		return Data

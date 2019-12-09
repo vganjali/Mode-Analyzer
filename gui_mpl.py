@@ -110,7 +110,7 @@ class MainWindow(Tk.Frame):
 		self.ScanFrom = Tk.StringVar()
 		self.ScanTo = Tk.StringVar()
 		self.Pixel2um.set("4")
-		self.GridSize.set("10")
+		self.GridSize.set("100")
 		self.FPthresh.set("0.4")
 		self.FPmindist.set("5")
 		self.FitAmpBoundL.set("0.5")
