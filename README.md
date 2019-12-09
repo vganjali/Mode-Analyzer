@@ -1,8 +1,11 @@
-  # Peak Analyzer
-  A GUI program written in Python to analyze optical waveguide mode analysis. It reads famous file formats i.e. *.JPG, *.TIFF, etc and analyze the intensity profiles along a line or averaged in a cross-section box.
+  # Mode Analyzer
+  
+  ![alt text](https://github.com/vganjali/Mode-Analyzer/blob/master/screenshots/1.png "GUI")
+  
+  A GUI program written in Python to analyze optical waveguide mode analysis. It opens popular image file formats i.e. *.JPG, *.TIFF, etc. and analyzes the intensity profiles along a line or averaged in a cross-section box. It's intended to be easy to use to do basic image corrections and analysis on optical mode profiles and MMI pattern analysis both for facet images and fluorescent images.
   
   # Prerequisites
-  - Python (=> 3.6)
+  - Python (>= 3.6, might work with 2.7 not tried!)
   - Numpy (>= 1.13.3)
   - Scipy (>= 1.0.0)
   - Matplotlib (>= 2.1.1)
@@ -13,14 +16,21 @@
   
   # GUI
   
+  ![alt text](https://github.com/vganjali/Mode-Analyzer/blob/master/screenshots/2.png "Main window")
+  ![alt text](https://github.com/vganjali/Mode-Analyzer/blob/master/screenshots/3.png "Plot window")
   The main window consists of three main panels:
-  - File list
-  - Image view and profile plot
-  - Analysis parameters and setting
+  - **Directory**: list of readable image files with datapoint copy and save buttons at the bottom
+  - **Image**: Image view and profile plot graph at the bottom
+  - **Settings**: Tabs of different analysis parameters
   
-  ## File list
-  Shows all readable image files available in the selected directory. At the bottom part of this panel, there are options to copy all datapoints of the profile plot.
-  ## Image View
-  Shows the selected image file in actual scale (determined by pixel to micron ratio). User can place the analysis line/box at any place on the image and the results will be immediately updated. At the bottom, the raw profile plot of the selected section is shown.
-  ## Settings
-  All the required parameters for analysis are grouped into different sections.
+  A pop up window with plot of actual values taken from raw data as well as Gaussian fits to the detected peaks in intensity plot. There are highlighted parts to show *peaks* and *valleys* and dashed lines showing averages of these parameters.
+  ![alt text](https://github.com/vganjali/Mode-Analyzer/blob/master/screenshots/4.png "Plot window")
+  
+  
+  # Reference
+  This program was used to do MMI pattern analysis published in the following papers:
+  (will be great if you cite any of them if you find this program helpful in your study)
+  
+  1. [Stott, Matthew A., **Vahid Ganjalizadeh**, Maclain H. Olsen, Marcos Orfila, Johnny McMurray, Holger Schmidt, and Aaron R. Hawkins. "Optimized ARROW-based MMI waveguides for high fidelity excitation patterns for optofluidic multiplexing." IEEE journal of quantum electronics 54, no. 3 (2018): 1-7.](https://doi.org/10.1109/JQE.2018.2816120)
+  2. [Stott, Matthew A., **Vahid Ganjalizadeh**, Maclain Olsen, Marcos Orfila, Johnny McMurray, Holger Schmidt, and Aaron R. Hawkins. "High Fidelity MMI Excitation Patterns for Optofluidic Multiplexing." In CLEO: Applications and Technology, pp. JW2A-24. Optical Society of America, 2018.](https://doi.org/10.1364/CLEO_AT.2018.JW2A.24)
+  
