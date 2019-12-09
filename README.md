@@ -17,7 +17,9 @@
   # GUI
   
   ![alt text](https://github.com/vganjali/Mode-Analyzer/blob/master/screenshots/2.png "Main window")
+  
   ![alt text](https://github.com/vganjali/Mode-Analyzer/blob/master/screenshots/3.png "Plot window")
+  
   The main window consists of three main panels:
   - **Directory**: list of readable image files with datapoint copy and save buttons at the bottom
   - **Image**: Image view and profile plot graph at the bottom
@@ -30,7 +32,9 @@
   - **Peak to Valley**: the gap between average of peaks and valleys for detected peaks
   - **Δx**: the separation between detected peaks
   Average and standard deviation of the mentioned metrics are listed in the table.
+  
   A pop up window with plot of actual values taken from raw data as well as Gaussian fits to the detected peaks in intensity plot. There are highlighted parts to show *peaks* and *valleys* and dashed lines showing averages of these parameters.
+  
   ![alt text](https://github.com/vganjali/Mode-Analyzer/blob/master/screenshots/4.png "Plot window")
   
   
