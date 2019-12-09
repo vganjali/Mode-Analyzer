@@ -40,9 +40,8 @@
   
   
   # Reference
-  This program was used to do MMI pattern analysis published in the following papers:
-  (will be great if you cite any of them if you find this program helpful in your study)
+  This program was used to do MMI pattern analysis published in this paper:
+  (will be great if you cite it if you find this program helpful in your study)
   
   1. [Stott, Matthew A., **Vahid Ganjalizadeh**, Maclain H. Olsen, Marcos Orfila, Johnny McMurray, Holger Schmidt, and Aaron R. Hawkins. "Optimized ARROW-based MMI waveguides for high fidelity excitation patterns for optofluidic multiplexing." IEEE journal of quantum electronics 54, no. 3 (2018): 1-7.](https://doi.org/10.1109/JQE.2018.2816120)
-  2. [Stott, Matthew A., **Vahid Ganjalizadeh**, Maclain Olsen, Marcos Orfila, Johnny McMurray, Holger Schmidt, and Aaron R. Hawkins. "High Fidelity MMI Excitation Patterns for Optofluidic Multiplexing." In CLEO: Applications and Technology, pp. JW2A-24. Optical Society of America, 2018.](https://doi.org/10.1364/CLEO_AT.2018.JW2A.24)
   
