@@ -10,7 +10,6 @@
   - Scipy (>= 1.0.0)
   - Matplotlib (>= 2.1.1)
   - Pillow (>= 5.0.0)
-  - PeakUtils (>= 1.1.0)
   
   You can install all requirements using **pip install** command. Once installed, just simply cd to the main master folder and call **main.py** file via python (python main.py).
   

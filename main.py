@@ -16,6 +16,7 @@ import numpy as np
 from scipy import ndimage
 import matplotlib
 matplotlib.use('TkAgg')
+# matplotlib.use('Agg')
 print ('Python Version: '+str(10*sys.version_info[0]+sys.version_info[1]))
 if (10*sys.version_info[0]+sys.version_info[1]) >= 36:
 	from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
@@ -30,36 +31,6 @@ from PIL import Image, ImageTk
 import os, os.path
 from re import compile, split
 
-
-print("""
-
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-+ MMI Pattern Analyzer                                       +
-+ Designed and written by: Vahid Ganjalizadeh - (Feb 2018)   +
-+ ---------------------------------------------------------- +
-+                                                            +
-+ About:                                                     +
-+  Calculates FWHM, Peak to Valley and more will be added.   +
-+                                                            +
-+ Tips:                                                      +
-+  - Select your data in result table by holding Ctrl/Shift  +
-+    and left/right click to copy to the clipboard           +
-+  - Tune your fitted curve by limitting bounds              +
-+  - Copy data points copies x, y data points of the         +
-+    intensity plot (save option is not added yet)           +
-+                                                            +
-+ Update notes (June 2019):                                  +
-+  - Solved the issue of Peak to Valley measurement for low  +
-+    resolution images										 +
-+  - Method of Peak to Valley calculation changed and is     +
-+    defined as below:                                       +
-+      P2VD = (avg(Peaks)-avg(Valleys))/avg(Peaks)           +
-+  - Standard Deviation (STD) values for FWHM and P2VD       +
-+    is added to the result table                            +
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-	  """)
-
 Dir = []
 Image_List = []
 Image_original = []
@@ -71,16 +42,17 @@ dx = 1
 ydata_fit =[]
 number_of_peaks = []
 
-class App(threading.Thread):
+class App(Tk.Tk):
 	def __init__(self):
-		threading.Thread.__init__(self)
-		self.start()
+		# threading.Thread.__init__(self)
+		self.root = Tk.Tk()
+		# self.start()
+		self.run()
 		
 	def callback(self):
 		self.root.quit()
 
 	def run(self):
-		self.root = Tk.Tk()
 		self.main_gui = MainWindow(master=self.root)
 		self.main_gui.theButtonBrowse.config(command=lambda: self.Browse())
 		self.main_gui.theButtonSetCS.config(command=lambda: self.SetCS())
@@ -126,13 +98,8 @@ class App(threading.Thread):
 				Image_List.append(f)
 			dre = compile(r'(\d+)')
 			Image_List.sort(key=lambda l: [int(s) if s.isdigit() else s.lower() for s in split(dre, l)])
-			i = 0
-			for f in Image_List:
-				if ((i % 2) == 0):
-					self.main_gui.theDirList.insert('', 'end', values=(f), tags='even')
-				else:
-					self.main_gui.theDirList.insert('', 'end', values=(f), tags='odd')
-				i += 1
+			for i,f in enumerate(Image_List):
+				self.main_gui.theDirList.insert('', 'end', values=([f]), tags=['even', 'odd'][i%2])
 			self.main_gui.theStatus.config(text="Idle")
 	def theDirList_select(self, event):
 		global Image_original, Image_rotated
@@ -225,12 +192,12 @@ class App(threading.Thread):
 		if (self.main_gui.PlotMode.get() == 'Single Line'):
 			Data = Image_gray[int(self.main_gui.ax2.cs.get_y() + self.main_gui.ax2.cs.get_height()/2),
 								 range(int(self.main_gui.ax2.cs.get_x()),
-									   int(self.main_gui.ax2.cs.get_x() + self.main_gui.ax2.cs.get_width()))].astype(np.float)
+									   int(self.main_gui.ax2.cs.get_x() + self.main_gui.ax2.cs.get_width()))].astype(float)
 		else:
 			Data = np.sum(Image_gray[np.ix_(range(int(self.main_gui.ax2.cs.get_y()),
 										   int(self.main_gui.ax2.cs.get_y() + self.main_gui.ax2.cs.get_height())),
 								 range(int(self.main_gui.ax2.cs.get_x()),
-									   int(self.main_gui.ax2.cs.get_x() + self.main_gui.ax2.cs.get_width())))], axis=0, dtype=np.float)
+									   int(self.main_gui.ax2.cs.get_x() + self.main_gui.ax2.cs.get_width())))], axis=0, dtype=float)
 		if (self.main_gui.Normalize.get() == 1):
 			Data = Data - np.amin(Data)
 			Data = Data / np.amax(Data)
@@ -239,7 +206,7 @@ class App(threading.Thread):
 			self.main_gui.ax1.set_ylabel('Intensity [a.u.]')
 		self.main_gui.ax1.cla()
 		self.main_gui.ax1.Line0, = self.main_gui.ax1.plot([], 'y-')
-		self.main_gui.ax1.Line0.set_data(np.linspace(0,np.alen(Data)/pixel_to_um,np.alen(Data)), Data)
+		self.main_gui.ax1.Line0.set_data(np.linspace(0,Data.shape[0]/pixel_to_um,Data.shape[0]), Data)
 		self.main_gui.ax1.axis('auto')
 		self.main_gui.ax1.relim()
 		self.main_gui.ax1.autoscale()
@@ -253,13 +220,13 @@ class App(threading.Thread):
 				CurveFit_a_bounds=(float(self.main_gui.FitAmpBoundL.get()), float(self.main_gui.FitAmpBoundU.get())), \
 				CurveFit_mu_bounds=(float(self.main_gui.FitMuBoundL.get()), float(self.main_gui.FitMuBoundU.get())), \
 				CurveFit_sigma_bounds=(float(self.main_gui.FitSigmaBoundL.get()), float(self.main_gui.FitSigmaBoundU.get())))
-			self.main_gui.theResultTable.item(self.main_gui.theResultTable.get_children()[0], values=('Number of Spots', np.alen(FWHM), '0'))
+			self.main_gui.theResultTable.item(self.main_gui.theResultTable.get_children()[0], values=('Number of Spots', len(FWHM), '0'))
 			self.main_gui.theResultTable.item(self.main_gui.theResultTable.get_children()[1], values=('FWHM', str("%.3f" % np.mean(FWHM)), str("%.3f" % np.mean(FWHM_STD))))
 			self.main_gui.theResultTable.item(self.main_gui.theResultTable.get_children()[2], values=('Peak to Valley', str("%.3f" % np.mean(Peak_to_Valley)), str("%.3f" % np.mean(Peak_to_Valley_STD))))
-			self.main_gui.theResultTable.item(self.main_gui.theResultTable.get_children()[3], values=(u'\u0394X', str("%.3f" % Delta_X), str("%.3f" % Delta_X_STD)))
+			self.main_gui.theResultTable.item(self.main_gui.theResultTable.get_children()[3], values=(u'\u0394X', str("%.3f" % np.mean(Delta_X)), str("%.3f" % np.mean(Delta_X_STD))))
 			#self.main_gui.theResultTable.item(self.main_gui.theResultTable.get_children()[4], values=('SNR', str("%.3f" % (np.mean(Data[Idx])/(np.mean(Data[Idx]) - np.mean(Peak_to_Valley)))), '0'))
-			dx = Delta_X*pixel_to_um
-			number_of_peaks = np.alen(FWHM)
+			dx = np.mean(Delta_X)*pixel_to_um
+			number_of_peaks = len(FWHM)
 		return Data
 
 	def Copy_data_points(self):
@@ -270,8 +237,8 @@ class App(threading.Thread):
 		Ydata = self.main_gui.ax1.Line0.get_ydata()
 		X = 'X_data, Y_data\n'
 		self.main_gui.theProgressbar.grid()
-		self.main_gui.theProgressbar['maximum'] = np.alen(Xdata)
-		for n in range(np.alen(Xdata)):
+		self.main_gui.theProgressbar['maximum'] = len(Xdata)
+		for n in range(len(Xdata)):
 			X += str(Xdata[n]) + ', ' + str(Ydata[n]) + '\n'
 			self.main_gui.theProgressbar['value'] = n
 			self.main_gui.theProgressbar.update()
@@ -287,7 +254,7 @@ class App(threading.Thread):
 		self.main_gui.clipboard_clear()
 		X = str(number_of_peaks)+': '+str(dx)+': '
 		self.main_gui.theProgressbar.grid()
-		self.main_gui.theProgressbar['maximum'] = np.alen(ydata_fit)
+		self.main_gui.theProgressbar['maximum'] = len(ydata_fit)
 		for n,y in enumerate(ydata_fit):
 			X += str(y)+', '
 			self.main_gui.theProgressbar['value'] = n
@@ -331,7 +298,7 @@ class App(threading.Thread):
 			Ydata = self.Update_Image(add=1, Scan=True)
 			Scan_Array[:,i] = Ydata
 			X = ''
-			for n in range(np.alen(Ydata)):
+			for n in range(len(Ydata)):
 				X += str(Ydata[n]) + ','
 			X = X[0:-1:1]
 			X += '\n'
@@ -341,7 +308,7 @@ class App(threading.Thread):
 			i += 1
 		self.main_gui.ax1.cla()
 		self.main_gui.ax1.imshow(Scan_Array, extent=[float(self.main_gui.ScanFrom.get()), float(self.main_gui.ScanTo.get()), \
-					0, np.alen(Ydata)/pixel_to_um])
+					0, len(Ydata)/pixel_to_um])
 		self.main_gui.ax1.axis('tight')
 		self.main_gui.canvas1.draw()
 		self.main_gui.theProgressbar.grid_remove()

@@ -113,7 +113,7 @@ backend      : TkAgg
 #patch.antialiased      : True    # render patches in antialiased (no jaggies)
 
 ### HATCHES
-hatch.color     : Y
+hatch.color     : yellow
 hatch.linewidth : 0.2
 
 ### Boxplot

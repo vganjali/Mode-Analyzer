@@ -22,7 +22,7 @@ from matplotlib.figure import Figure
 
 
 matplotlib.use('TkAgg')
-#print(plt.style.available)
+# print(plt.style.available)
 
 _background_color = '#000000'
 _foreground_color = '#FFF'
@@ -388,7 +388,7 @@ class MainWindow(Tk.Frame):
 		master.columnconfigure(1, minsize=20, weight=0)
 		# Style
 		MainStyle = Ttk.Style()
-#         MainStyle.theme_use('clam')
+        # MainStyle.theme_use('clam')
 		MainStyle.theme_create("Dark", parent="clam", settings={
 		".": {
 			"configure": {"background": _dark_bg,
@@ -522,7 +522,8 @@ class MainWindow(Tk.Frame):
 																  
 																  
 																} )
-		Main_Theme=Ttk.Style()
+		# Main_Theme=Ttk.Style()
 		MainStyle.theme_use('Dark')
+		# MainStyle.theme_use('clam')
 		self.configure(background=_dark_bg)
 		self.create_widgets()
