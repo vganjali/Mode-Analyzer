@@ -1,4 +1,5 @@
 import sys, os
+modpath = os.path.split(__file__)[0]
 #from qtconsole.mainwindow import background
 if sys.version_info[0] < 3:
 	import Tkinter as Tk
@@ -12,6 +13,7 @@ if (10*sys.version_info[0]+sys.version_info[1]) >= 36:
 	from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 else:
 	from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.figure import Figure
 
@@ -35,7 +37,9 @@ _dark_bg_2 = '#252515'
 
 class MainWindow(Tk.Frame):
 	#plt.style.use('bmh')
-	#plt.style.use('Dark.mplstyle')
+	# plt.style.use('src/mode_analyzer/dark.mplstyle')
+	os.system('ls')
+	plt.style.use(modpath+'/matplotlibrc')
 	Z = []
 	FPthresh = []
 	FPmindist = []
@@ -368,12 +372,11 @@ class MainWindow(Tk.Frame):
 	def __init__(self,master=None):
 		Tk.Frame.__init__(self, master)
 		master.title('MMI Pattern Analyzer')
-		program_directory=sys.path[0]
 		self.GaussImg = Tk.PhotoImage( \
-		file=os.path.join(program_directory,'gauss.gif'))
-		imgicon = Tk.PhotoImage(file=os.path.join(program_directory,'icon.gif'))
+		file=os.path.join(modpath,'gauss.gif'))
+		imgicon = Tk.PhotoImage(file=os.path.join(modpath,'icon.gif'))
 		master.tk.call('wm', 'iconphoto', master._w, imgicon)
-		#master.iconbitmap(os.path.join(program_directory, "icon.ico"))
+		#master.iconbitmap(os.path.join(modpath, "icon.ico"))
 #        master.iconbitmap('icon.ico')
 		master.configure(background=_dark_bg)
 		master.minsize(860, 640)

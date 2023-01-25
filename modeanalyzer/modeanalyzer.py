@@ -1,5 +1,5 @@
 import sys
-import find_peaks as find_peaks
+from find_peaks import *
 if sys.version_info[0] < 3:
 	import Tkinter as Tk
 	import tkFileDialog as TkFD
@@ -30,12 +30,12 @@ dx = 1
 ydata_fit =[]
 number_of_peaks = []
 
-class App(Tk.Tk):
+class main(Tk.Tk):
 	def __init__(self):
 		# threading.Thread.__init__(self)
 		self.root = Tk.Tk()
 		# self.start()
-		self.run()
+		# self.run()
 		
 	def callback(self):
 		self.root.quit()
@@ -202,7 +202,7 @@ class App(Tk.Tk):
 		if (not Scan):
 			self.main_gui.theStatus.config(text="Analyzing peaks...")
 			self.main_gui.update()
-			Idx, Idx_xdata, FWHM, FWHM_STD, Peak_to_Valley, Peak_to_Valley_STD, Delta_X, Delta_X_STD, ydata_fit = find_peaks.find_peaks(
+			Idx, Idx_xdata, FWHM, FWHM_STD, Peak_to_Valley, Peak_to_Valley_STD, Delta_X, Delta_X_STD, ydata_fit = find_peaks(
 				Data, float(self.main_gui.CSWidth.get()), float(self.main_gui.ValleyOffset.get()), \
 				FindPeak_thresh=float(self.main_gui.FPthresh.get()), FindPeak_mindist=float(self.main_gui.FPmindist.get()), \
 				CurveFit_a_bounds=(float(self.main_gui.FitAmpBoundL.get()), float(self.main_gui.FitAmpBoundU.get())), \
@@ -305,20 +305,14 @@ class App(Tk.Tk):
 		self.main_gui.theStatus.config(text="Idle")
 		self.main_gui.update()
 		
-def on_closing():
-#    threading.current_thread().cancel()
-	try:
-#        app.root.quit()
-		if app.is_alive():
-			app.root.quit()
-			sys.exit()
-		else:
-			sys.exit()
-	except:
-		return
-app = App()
-# Run = RunSimulation()
-# root = Tk.Tk()
-# main_gui = MainWindow(master=root)
-# root.read = read_data(f)
-# root.mainloop()
+# def on_closing():
+# #    threading.current_thread().cancel()
+# 	try:
+# #        app.root.quit()
+# 		if app.is_alive():
+# 			app.root.quit()
+# 			sys.exit()
+# 		else:
+# 			sys.exit()
+# 	except:
+# 		return

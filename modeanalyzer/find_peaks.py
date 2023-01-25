@@ -1,8 +1,9 @@
+import os as os
+modpath = os.path.split(__file__)[0]
 import numpy as np
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks as scp_find_peaks
-import os as os
 from time import perf_counter_ns
 
 def gauss(x, a, mu, sigma):                         # Single Gaussian curve
@@ -15,7 +16,7 @@ def find_peaks(Data, WG_Width, Valley_Offset, FindPeak_thresh=0.5, FindPeak_mind
     Data = ydata
     ydata_peaks = ydata[:]
     Residual = -1
-    with plt.style.context((['default', 'fitplotstyle'])):
+    with plt.style.context((['default', modpath+'/fitplotstyle'])):
         fig1 = plt.figure('Curve Fitting', figsize=(5.5, 3.2))
         ax1 = plt.gca() 
         plt.ion()
