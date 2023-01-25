@@ -1,6 +1,6 @@
   # Mode Analyzer
   
-  ![alt text](https://github.com/vganjali/Mode-Analyzer/blob/master/screenshots/1.png "GUI")
+  ![alt text](screenshots/1.png "GUI")
   
   A GUI program written in Python to analyze optical waveguide mode analysis. It opens popular image file formats i.e. *.JPG, *.TIFF, etc. and analyzes the intensity profiles along a line or averaged in a cross-section box. It's intended to be easy to use to do basic image corrections and analysis on optical mode profiles and MMI pattern analysis both for facet images and fluorescent images.
   
@@ -13,11 +13,22 @@
   
   You can install all requirements using **pip install** command. Once installed, just simply cd to the main master folder and call **main.py** file via python (python main.py).
   
+  # Install
+  The program is built and published in PyPi repository. You can install it on your machine by
+  ```console
+  pip3 install mode-analyzer
+  ```
+  # How to use
+  After installing the package by `pip`, simply call the following command in your console/terminal
+  ```console
+  python3 -m modeanalyzer
+  ```
+
   # GUI
   
-  ![alt text](https://github.com/vganjali/Mode-Analyzer/blob/master/screenshots/2.png "Main window")
+  ![alt text](screenshots/2.png "Main window")
   
-  ![alt text](https://github.com/vganjali/Mode-Analyzer/blob/master/screenshots/3.png "Plot window")
+  ![alt text](screenshots/3.png "Plot window")
   
   The main window consists of three main panels:
   - **Directory**: list of readable image files with datapoint copy and save buttons at the bottom
@@ -35,7 +46,7 @@
   
   A pop up window with plot of actual values taken from raw data as well as Gaussian fits to the detected peaks in intensity plot. There are highlighted parts to show *peaks* and *valleys* and dashed lines showing averages of these parameters.
   
-  ![alt text](https://github.com/vganjali/Mode-Analyzer/blob/master/screenshots/4.png "Plot window")
+  ![alt text](screenshots/4.png "Plot window")
   
   
   # Reference
