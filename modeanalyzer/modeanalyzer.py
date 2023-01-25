@@ -220,7 +220,7 @@ class main(Tk.Tk):
 	def Copy_data_points(self):
 		self.main_gui.theStatus.config(text=" Collecting data points...")
 		self.main_gui.update()
-		self.main_gui.clipboard_clear()
+		self.root.clipboard_clear()
 		Xdata = self.main_gui.ax1.Line0.get_xdata()
 		Ydata = self.main_gui.ax1.Line0.get_ydata()
 		X = 'X_data, Y_data\n'
@@ -231,7 +231,7 @@ class main(Tk.Tk):
 			if (n%100)==0:
 				self.main_gui.theProgressbar['value'] = n/100
 				self.main_gui.theProgressbar.update()
-		self.main_gui.clipboard_append(X)
+		self.root.clipboard_append(X)
 		self.main_gui.theProgressbar.grid_remove()
 		self.main_gui.theStatus.config(text="Idle")
 		self.main_gui.update()
@@ -240,7 +240,7 @@ class main(Tk.Tk):
 		global dx, ydata_fit, number_of_peaks
 		self.main_gui.theStatus.config(text=" Collecting data points...")
 		self.main_gui.update()
-		self.main_gui.clipboard_clear()
+		self.root.clipboard_clear()
 		X = str(number_of_peaks)+': '+str(dx)+': '
 		self.main_gui.theProgressbar.grid()
 		self.main_gui.theProgressbar['maximum'] = len(ydata_fit)/100
@@ -250,7 +250,7 @@ class main(Tk.Tk):
 				self.main_gui.theProgressbar['value'] = n/100
 				self.main_gui.theProgressbar.update()
 		X = X[:-2]
-		self.main_gui.clipboard_append(X)
+		self.root.clipboard_append(X)
 		self.main_gui.theProgressbar.grid_remove()
 		self.main_gui.theStatus.config(text="Idle")
 		self.main_gui.update()
@@ -283,7 +283,7 @@ class main(Tk.Tk):
 		Ydata = self.main_gui.ax1.Line0.get_ydata()
 		Scan_Array = np.ndarray((len(Ydata),len(self.main_gui.theDirList.get_children())))
 		i = 0
-		self.main_gui.clipboard_clear()
+		self.root.clipboard_clear()
 		self.main_gui.theProgressbar.grid()
 		self.main_gui.theProgressbar['maximum'] = len(self.main_gui.theDirList.get_children())
 		for item in self.main_gui.theDirList.get_children():
@@ -299,7 +299,7 @@ class main(Tk.Tk):
 				X += str(Ydata[n]) + ','
 			X = X[0:-1:1]
 			X += '\n'
-			self.main_gui.clipboard_append(X)
+			self.root.clipboard_append(X)
 			self.main_gui.theProgressbar['value'] = i
 			self.main_gui.theProgressbar.update()
 			i += 1
