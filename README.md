@@ -16,7 +16,7 @@
   # Install
   The program is built and published in PyPi repository. You can install it on your machine by
   ```console
-  pip3 install mode-analyzer
+  pip3 install --upgrade mode-analyzer
   ```
   # How to use
   After installing the package by `pip`, simply call the following command in your console/terminal
