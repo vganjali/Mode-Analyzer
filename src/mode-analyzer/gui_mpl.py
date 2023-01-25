@@ -1,5 +1,4 @@
-import sys
-from numpy import dtype
+import sys, os
 #from qtconsole.mainwindow import background
 if sys.version_info[0] < 3:
 	import Tkinter as Tk
@@ -8,15 +7,11 @@ if sys.version_info[0] < 3:
 else:
 	import tkinter as Tk
 	import tkinter.ttk as Ttk
-import os,string,time
-import numpy as np 
 import matplotlib
 if (10*sys.version_info[0]+sys.version_info[1]) >= 36:
 	from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
 else:
 	from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-from matplotlib.backend_bases import key_press_handler, Event
-import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.figure import Figure
 

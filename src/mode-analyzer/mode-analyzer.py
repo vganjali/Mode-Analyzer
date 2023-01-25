@@ -1,33 +1,21 @@
 import sys
-from threading import Thread
 import find_peaks as find_peaks
-from numpy import ndarray, size
-from time import sleep
 if sys.version_info[0] < 3:
 	import Tkinter as Tk
 	import tkFileDialog as TkFD
 else:
 	import tkinter as Tk
 	import tkinter.filedialog as TkFD
-import threading
-import string,time
 import numpy as np 
 #import scipy as sp
 from scipy import ndimage
 import matplotlib
 matplotlib.use('TkAgg')
 # matplotlib.use('Agg')
-print ('Python Version: '+str(10*sys.version_info[0]+sys.version_info[1]))
-if (10*sys.version_info[0]+sys.version_info[1]) >= 36:
-	from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationToolbar2Tk)
-else:
-	from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-from matplotlib.backend_bases import key_press_handler
-import matplotlib.pyplot as plt
-from matplotlib.figure import Figure
+print (f'Python Version: {sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}')
 from gui_mpl import *
 #import cv2
-from PIL import Image, ImageTk
+from PIL import Image
 import os, os.path
 from re import compile, split
 
@@ -237,11 +225,12 @@ class App(Tk.Tk):
 		Ydata = self.main_gui.ax1.Line0.get_ydata()
 		X = 'X_data, Y_data\n'
 		self.main_gui.theProgressbar.grid()
-		self.main_gui.theProgressbar['maximum'] = len(Xdata)
+		self.main_gui.theProgressbar['maximum'] = len(Xdata)/100
 		for n in range(len(Xdata)):
 			X += str(Xdata[n]) + ', ' + str(Ydata[n]) + '\n'
-			self.main_gui.theProgressbar['value'] = n
-			self.main_gui.theProgressbar.update()
+			if (n%100)==0:
+				self.main_gui.theProgressbar['value'] = n/100
+				self.main_gui.theProgressbar.update()
 		self.main_gui.clipboard_append(X)
 		self.main_gui.theProgressbar.grid_remove()
 		self.main_gui.theStatus.config(text="Idle")
@@ -254,11 +243,12 @@ class App(Tk.Tk):
 		self.main_gui.clipboard_clear()
 		X = str(number_of_peaks)+': '+str(dx)+': '
 		self.main_gui.theProgressbar.grid()
-		self.main_gui.theProgressbar['maximum'] = len(ydata_fit)
+		self.main_gui.theProgressbar['maximum'] = len(ydata_fit)/100
 		for n,y in enumerate(ydata_fit):
 			X += str(y)+', '
-			self.main_gui.theProgressbar['value'] = n
-			self.main_gui.theProgressbar.update()
+			if (n%100)==0:
+				self.main_gui.theProgressbar['value'] = n/100
+				self.main_gui.theProgressbar.update()
 		X = X[:-2]
 		self.main_gui.clipboard_append(X)
 		self.main_gui.theProgressbar.grid_remove()
