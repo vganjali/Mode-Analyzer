@@ -265,10 +265,17 @@ class main(Tk.Tk):
 		else:
 			self.main_gui.canvas2.mpl_disconnect(self.cid2)
 			self.main_gui.theStatus.config(text="Idle")
+			self.main_gui.theButtonSetCS.config(text="Done")
 		
 	def SetCS(self):
-		self.main_gui.theStatus.config(text="Left click to set the CS origin / Right click to exit")
-		self.cid2 = self.main_gui.canvas2.mpl_connect('button_press_event', self.CSonclick)
+		if self.main_gui.theButtonSetCS.cget('text')=='Set':
+			self.main_gui.theStatus.config(text="Left click to set the CS origin / Right click to exit")
+			self.cid2 = self.main_gui.canvas2.mpl_connect('button_press_event', self.CSonclick)
+			self.main_gui.theButtonSetCS.config(text="Done")
+		else:
+			self.main_gui.canvas2.mpl_disconnect(self.cid2)
+			self.main_gui.theStatus.config(text="Idle")
+			self.main_gui.theButtonSetCS.config(text="Set")
 
 	def Make_Scan_Plot(self):
 		global Image_original, Image_rotated, pixel_to_um
